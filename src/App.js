@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Landing from './pages/Landing.jsx';
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+import WalletInfo from './components/Navbar.jsx';
+import JobForm from './pages/JobForm.jsx';
+import FreelancerForm from './pages/FreelancerForm.jsx';
+import ClientHomePage from './pages/ClientHome.jsx';
+import JobList from './pages/JobList.jsx';
+import FreelancherJobList from './pages/FreelancherJobList.jsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+     <Router>
+        <Routes>
+          <Route path="/" element={<Landing />}></Route>
+          <Route path="/client" element={<JobForm />}></Route>
+          <Route path="/clientHome" element={<ClientHomePage />}></Route>
+          <Route path="/freelancer" element={<FreelancerForm />}></Route>
+          <Route path="/allprojects" element={<JobList />}></Route>
+          <Route path="/freelanceJob" element={<FreelancherJobList />}></Route>
+          </Routes>
+          </Router>
+     
+    </>
   );
 }
 

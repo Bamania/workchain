@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-const mongooseURL = "mongodb+srv://amany29074:22124006@khanakhojo.xizkwpq.mongodb.net/?retryWrites=true&w=majority&appName=KhanaKhojo/blockchainJob";   //blockchainJob is the database name 
+var password = encodeURIComponent("#LRQRUGGL");
+const mongooseURL = `mongodb+srv://BLOCKFIVER:${password}@cluster0.nkkmq94.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/blockchainJob`;   //blockchainJob is the database name 
 
 const mongoDB = async () => {
   try {

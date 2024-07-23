@@ -1,9 +1,11 @@
+// File: src/components/JobList.js
 import React, { useEffect, useState } from 'react';
 import { FaCheckCircle, FaDollarSign, FaMapMarkerAlt, FaRegClock } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
 const JobList = () => {
   const [jobs, setJobs] = useState([]);
-
+  const [status, setStatus] = useState("incomplete");
+  const navigate=useNavigate();
   useEffect(() => {
     const fetchJobs = async () => {
       try {
@@ -17,6 +19,29 @@ const JobList = () => {
 
     fetchJobs();
   }, []);
+
+  const handleApply = async (jobId) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/apply/${jobId}`, { //developer applying for job 1 ! can be distinguished using job Id
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ developerId: 'developer1' }) //ASSUMING THE ID of the developer here
+      });
+      const data = await response.json();
+      setStatus("completed");
+      alert(data.message);
+    } catch (error) {
+      console.error('Failed to apply for job:', error);
+    }
+  };
+
+  const handleChat = () => {
+    // Assuming you have a chat system in place and the chat page URL is /chat
+    // Navigate to the chat page with the clientId as a query parameter or state
+    navigate("/chat");
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-8">
@@ -59,6 +84,21 @@ const JobList = () => {
                 <span className="flex items-center text-gray-500 text-sm">
                   Proposals: {job.proposals || 'N/A'}
                 </span>
+              </div>
+              <button
+                onClick={() => handleApply(job._id)}
+                className="w-full mt-4 bg-blue-600 text-white py-2 rounded-lg shadow-md hover:bg-blue-700 transition duration-300"
+              >
+                Apply for this work!
+              </button>
+              <button
+                onClick={() => handleChat(job.clientId)}
+                className="w-full mt-2 bg-green-600 text-white py-2 rounded-lg shadow-md hover:bg-green-700 transition duration-300"
+              >
+                Chat with Client
+              </button>
+              <div>
+                <h1>status: {status}</h1>
               </div>
             </div>
           ))}

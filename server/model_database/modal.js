@@ -17,7 +17,7 @@ const jobSchema = new mongoose.Schema({
   milestones: [milestoneSchema]
 });
 
-const Job = mongoose.model('Job', jobSchema);
+const Job = mongoose.model('Job', jobSchema,"test01");
 
 export default Job;
 

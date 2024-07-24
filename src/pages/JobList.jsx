@@ -9,7 +9,7 @@ const JobList = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/allprojects');
+        const response = await fetch('https://workchain.onrender.com/api/allprojects');
         const data = await response.json();
         setJobs(data);
       } catch (error) {
@@ -25,7 +25,7 @@ const JobList = () => {
     
    
     try {
-      const response = await fetch(`http://localhost:5000/api/apply/${jobid}`, { //developer applying for job 1 ! can be distinguished using job Id
+      const response = await fetch(`https://workchain.onrender.com/api/apply/${jobid}`, { //developer applying for job 1 ! can be distinguished using job Id
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

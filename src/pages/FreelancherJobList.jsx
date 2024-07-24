@@ -10,7 +10,7 @@ const FreelancherJobList = () => {
       const token = sessionStorage.getItem('token'); // Retrieve the token from session storage
 
       try {
-        const response = await fetch('http://localhost:5000/api/allprojects', {
+        const response = await fetch('https://workchain.onrender.com/api/allprojects', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -43,7 +43,7 @@ const FreelancherJobList = () => {
     const token = sessionStorage.getItem('token');
 
     try {
-      const response = await fetch(`http://localhost:5000/api/apply/${job._id}`, { // developer applying for job 1 ! can be distinguished using job Id
+      const response = await fetch(`https://workchain.onrender.com/api/apply/${job._id}`, { // developer applying for job 1 ! can be distinguished using job Id
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,7 +13,7 @@ const Devsentproposal = () => {
   
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch(`http://localhost:5000/api/get-proposals?developerUsername=${username}`, {
+        const response = await fetch(`https://workchain.onrender.com/api/get-proposals?developerUsername=${username}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

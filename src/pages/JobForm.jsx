@@ -26,7 +26,7 @@ const navigate = useNavigate();
     const token = sessionStorage.getItem('token') //getting back the token ! after clicking posting the job
     console.log("Jo login krte waqt saved hua",token);
     try {
-      const response = await fetch('http://localhost:5000/api/job', {
+      const response = await fetch('https://workchain.onrender.com/api/job', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -41,7 +41,7 @@ const ClientHomePage = () => {
     // Call the API to update proposal statuses when the page renders
     const updateProposalStatuses = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/updateCompletedStatus', {
+        const response = await fetch('https://workchain.onrender.com/api/updateCompletedStatus', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

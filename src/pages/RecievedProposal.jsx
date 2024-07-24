@@ -11,7 +11,7 @@ const ReceivedProposals = () => {
     const fetchProposals = async () => {
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/get-received-proposals', {
+        const response = await fetch('https://workchain.onrender.com/api/get-received-proposals', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -37,7 +37,7 @@ const ReceivedProposals = () => {
   const handleAccept = async (proposalId) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/update-proposal/${proposalId}`, {
+      const response = await fetch(`https://workchain.onrender.com/api/update-proposal/${proposalId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const ReceivedProposals = () => {
   const handleReject = async (proposalId) => {
     try {
       const token = sessionStorage.getItem('token');
-      const response = await fetch(`http://localhost:5000/api/update-proposal/${proposalId}`, {
+      const response = await fetch(`https://workchain.onrender.com/api/update-proposal/${proposalId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const ReceivedProposals = () => {
       }
 
       // Fetch updated proposals list
-      const responseUpdated = await fetch('http://localhost:5000/api/get-received-proposals', {
+      const responseUpdated = await fetch('https://workchain.onrender.com/api/get-received-proposals', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`

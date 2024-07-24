@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 // import './Chat.css'; // Ensure you have Tailwind CSS setup in your project
 
-const socket = io('http://localhost:5000');
+const socket = io('https://workchain.onrender.com');
 
 const Chat = ({ roomId, username }) => {
   const [message, setMessage] = useState('');

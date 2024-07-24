@@ -70,7 +70,7 @@ const ReceivedProposals = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update proposal');
+        throw new Error('Failed to update proposaal');
       }
 
       // Fetch updated proposals list

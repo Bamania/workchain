@@ -61,16 +61,15 @@ const ModifyProposal = () => {
 
   const handleStepStatusChange = (proposalIndex, milestoneIndex, stepIndex, status) => {
     const newMilestones = [...modifiedMilestones];
-    newMilestones[proposalIndex][milestoneIndex].steps[stepIndex].developerStatus = status;
+    newMilestones[proposalIndex][milestoneIndex].steps[stepIndex].developerStatus = status.toLowerCase(); // Ensure lowercase
     setModifiedMilestones(newMilestones);
   };
-
   const handleCompleteStep = (proposalIndex, milestoneIndex, stepIndex) => {
-    handleStepStatusChange(proposalIndex, milestoneIndex, stepIndex, 'completed');
+    handleStepStatusChange(proposalIndex, milestoneIndex, stepIndex, 'complete');
   };
 
   const handleIncompleteStep = (proposalIndex, milestoneIndex, stepIndex) => {
-    handleStepStatusChange(proposalIndex, milestoneIndex, stepIndex, 'incomplete');
+    handleStepStatusChange(proposalIndex, milestoneIndex, stepIndex, 'not completed');
   };
   const handleStatusupdate=()=>{
     navigate("/statusupdate");
@@ -96,7 +95,7 @@ const ModifyProposal = () => {
         throw new Error('Failed to update proposal');
       }
 
-      navigate('/ongoing-proposals'); // Redirect to ongoing proposals page
+      navigate('/ongoing-projects'); // Redirect to ongoing proposals page
     } catch (err) {
       setError(err.message);
     }
@@ -170,6 +169,14 @@ const ModifyProposal = () => {
                           >
                             Mark Step as Incomplete
                           </button>
+                          <button
+  onClick={() => handleCompleteStep(proposalIndex, milestoneIndex, stepIndex)}
+  className="bg-yellow-500 ml-5 text-white px-4 py-1 rounded mr-2 "
+  onMouseDown={() => alert('This feature is coming soon. Developers will need to upload Git commits, images, and videos info once available. Stay tuned')}
+  
+>
+  Upload proof
+</button>
                         </div>
                       </div>
                     ))}

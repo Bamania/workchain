@@ -31,28 +31,25 @@ const io = new Server(server, {
 mongoDb();
 
 // Handle WebSocket connections
-io.on("connection", async (socket) => {
-    console.log("A new user has connected", socket.id);
-  
-    // Retrieve and send all previous messages to the new user
-    const messages = await Message.find().sort({ time: 1 }).exec();
-    socket.emit("initial-messages", messages);
-  
-    // Listen for incoming messages from clients
-    socket.on("message", async (messageContent) => {
-      // Store the message in the database
-      const message = new Message(messageContent);
-      await message.save();
-  
-      // Broadcast the message to all connected clients
-      io.emit("message", message);
-    });
-  
-    // Handle disconnections
-    socket.on("disconnect", () => {
-      console.log(socket.id, " disconnected");
-    });
+io.on('connection', (socket) => {
+  console.log('New client connected');
+
+  socket.on('joinRoom', async ({ roomId }) => {
+    socket.join(roomId);
+    const messages = await Message.find({ roomId }).sort({ timestamp: 1 });
+    socket.emit('previousMessages', messages);
   });
+
+  socket.on('sendMessage', async ({ roomId, sender, message }) => {
+    const newMessage = new Message({ roomId, sender, message });
+    await newMessage.save();
+    io.to(roomId).emit('receiveMessage', newMessage);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
 // Start the server
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

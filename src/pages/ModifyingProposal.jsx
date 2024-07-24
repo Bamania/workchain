@@ -101,7 +101,7 @@ const ModifyProposal = () => {
         throw new Error('Failed to update proposal');
       }
 
-      navigate('/ongoing-proposals'); // Redirect to ongoing proposals page
+      navigate('/ongoing-projects'); // Redirect to ongoing proposals page
     } catch (err) {
       setError(err.message);
     }

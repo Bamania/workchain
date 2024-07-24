@@ -48,11 +48,13 @@ function App() {
           <Route path="/createproject" element={<JobForm />}></Route>
           <Route path="/clientHome" element={<AuthWrapper> <ClientHomePage /></AuthWrapper>}></Route>
           {/* <Route path="/profile" element={<FreelancerForm />}></Route> */}
-          <Route path="/progress" element={<OngoingForClient />}></Route>
+          {/* on going for the client ! down ! */}
+          <Route path="/progress" element={<OngoingForClient />}></Route> 
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/freelancer" element={<JobList />}></Route>
           <Route path="/availableJob" element={<FreelancherJobList />}></Route>
-          <Route path="/chat" element={<Chat  />}></Route>
+          {/* <Route path="/chat" element={<Chat  />}></Route> */}
+          <Route path="/chat/:roomId" element={<Chat />} />
           <Route path="/chat2" element={<ChatWithDeveloperPage  />}></Route>
           <Route path="/DeveloperLogin" element={<DeveloperLogin  />}></Route>
           <Route path="/createProposal" element={<ProposalPage  />}></Route>

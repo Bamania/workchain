@@ -6,14 +6,15 @@ const StepSchema = new Schema({
   stepTitle: {
     type: String,
     required: true
-  },developerStatus: {
+  },
+  developerStatus: {
     type: String,
-    enum: ['not completed', 'completed'],
+    enum: ['not completed', 'complete'],
     default: 'not completed'
   },
   clientStatus: {
     type: String,
-    enum: ['not completed', 'completed'],
+    enum: ['not completed', 'Completed'],
     default: 'not completed'
   }
  
@@ -58,7 +59,7 @@ const ProposalSchema = new Schema({
   milestones: [MilestoneSchema],
   status: {
     type: String,
-    enum: ['incomplete','ongoing', 'complete'],
+    enum: ['incomplete','ongoing', 'completed'],
     default: 'incomplete'
   },
   createdAt: {

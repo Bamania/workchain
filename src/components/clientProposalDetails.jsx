@@ -98,8 +98,18 @@ const ProposalDetails = () => {
                       >
                         <option value="Not Completed">Not Completed</option>
                         <option value="Completed">Completed</option>
++++++++++++++++++++++++++++++++++++++
+
                       </select>
-                    </p>
+                                  <button
+  // onClick={() => handleCompleteStep(proposalIndex, milestoneIndex, stepIndex)}
+  className="bg-yellow-500 ml-5 text-white px-4 py-1 rounded mr-2 "
+  onMouseDown={() => alert('This feature is coming soon. client will be able to see the  uploaded  Git commits, images, and videos by the developers. Stay tuned')}
+  
+>
+  See proofs !
+</button>
+                      </p>
                   </div>
                 ))}
               </div>

@@ -1,10 +1,13 @@
 // models/Message.js
 import mongoose from 'mongoose';
 
+
+
 const messageSchema = new mongoose.Schema({
-  author: String,
+  roomId: String,
+  sender: String,
   message: String,
-  time: { type: Date, default: Date.now }
+  timestamp: { type: Date, default: Date.now }
 });
 
 const Message = mongoose.model('Message', messageSchema);

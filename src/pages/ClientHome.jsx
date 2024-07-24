@@ -1,19 +1,66 @@
 // File: src/components/ClientHomePage.js
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaProjectDiagram, FaHistory, FaStore } from 'react-icons/fa';
 import Navbar from '../components/Navbar2';
 
 const ClientHomePage = () => {
   const navigate = useNavigate();
-
+  
   const handleCreateProject = () => {
     navigate("/createproject");
   };
 
   const handlePastProject = () => {
-    navigate("/allprojects");
+    navigate("/completed-projects");
   };
+
+    // const updateProposalStatus = async () => {
+    //   try {
+    //     const response = await fetch('/updateCompletedStatus', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json'
+    //       }
+    //     });
+    //     const data = await response.json();
+    //     if (response.ok) {
+    //       console.log('Proposals updated successfully', data);
+    //     } else {
+    //       console.error('Error updating proposals:', data);
+    //     }
+    //   } catch (error) {
+    //     console.error('Error updating proposals:', error);
+    //   }
+    // };
+  
+    // useEffect(() => {
+    //   updateProposalStatus();
+    // }, []);
+  useEffect(() => {
+    // Call the API to update proposal statuses when the page renders
+    const updateProposalStatuses = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/updateCompletedStatus', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Update response:', data);
+      } catch (error) {
+        console.error('Error updating proposal statuses:', error);
+      }
+    };
+
+    updateProposalStatuses();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">

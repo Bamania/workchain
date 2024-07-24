@@ -148,10 +148,10 @@ const ReceivedProposals = () => {
         )}
 
         <button 
-          onClick={() => navigate('/all-projects')}
+          onClick={() => navigate('/clientHome')}
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Go Back to All Projects
+          Go Back to Menu
         </button>
       </div>
     </div>

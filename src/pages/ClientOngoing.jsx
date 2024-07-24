@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ChatButton from '../components/Chatbutton';
 
 const OngoingForClient = () => {
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  const handleChatClick=()=>{
+    // navigate('/chat');
+    console.log("handleChatClick")
+  }
   useEffect(() => {
     const fetchOngoingProposals = async () => {
       const token = sessionStorage.getItem('token');
@@ -48,7 +52,12 @@ const OngoingForClient = () => {
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-4xl mx-auto bg-white shadow-md p-6">
         <h1 className="text-2xl font-bold mb-6">Ongoing Proposals</h1>
-
+        <button
+          onClick={() => navigate("/clienthome")}
+          className="mb-6 bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+        >
+          Go Back to Home Page
+        </button>
         {proposals.length === 0 ? (
           <p>No ongoing proposals found.</p>
         ) : (
@@ -63,6 +72,13 @@ const OngoingForClient = () => {
               >
                 View Details
               </button>
+              <button 
+                onClick={() => handleChatClick()}
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Chat with Developer
+              </button>
+              <ChatButton/>
             </div>
           ))
         )}

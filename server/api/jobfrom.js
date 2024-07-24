@@ -317,7 +317,7 @@ router.get('/get-ongoing-proposals-forclient',  authenticateToken, async (req, r
   try {
     // Find all proposals with status 'ongoing'
     const ongoingProposals = await Proposal.find({ status: 'ongoing' });
-
+    console.log(ongoingProposals);
     // Respond with the found proposals
     res.json({ proposals: ongoingProposals });
   } catch (error) {
@@ -363,8 +363,8 @@ router.post('/get-proposals', async (req, res) => {
 //for updating the inputs of the proposal for the dveloeper proposal
 router.put('/updateproposal', async (req, res) => {
   console.log("route called for updation");
-  const { proposals } = req.body; // proposals should be an array of proposal objects
-  console.log(proposals)
+  const { proposals } = req.body; 
+  console.log(proposals);
   
   const flattenedProposals = proposals.flat();
   
@@ -373,16 +373,24 @@ router.put('/updateproposal', async (req, res) => {
       const { _id, milestones } = proposal;
       console.log(_id, milestones);
       
-      // Find the proposal by ID and update it
       const existingProposal = await Proposal.findOne({ _id: _id });
-      console.log(existingProposal);
+      console.log("jo select kre ho uska status ! change krne ja rhe ho wo ",existingProposal);
       
       if (!existingProposal) {
         return res.status(404).json({ message: `Proposal with ID ${_id} not found` });
       }
 
-      // Update the milestones
-      existingProposal.milestones = milestones;
+      // Validate and normalize milestone data
+      const normalizedMilestones = milestones.map(milestone => ({
+        ...milestone,
+        steps: milestone.steps.map(step => ({
+          ...step,
+          // clientStatus: step.clientStatus.toLowerCase(), // Ensure lowercase
+          developerStatus: step.developerStatus.toLowerCase(), // Ensure lowercase
+        }))
+      }));
+
+      existingProposal.milestones = normalizedMilestones;
       await existingProposal.save();
     }
 
@@ -437,6 +445,47 @@ router.get('/get-proposal/:id', authenticateToken, async (req, res) => {
   }
 });
 
+router.post('/updateCompletedStatus', async (req, res) => {
+  try {
+    // Update proposals only if all steps within all milestones have clientStatus as 'Completed'
+    const updatedProposals = await Proposal.updateMany(
+      {
+        status: 'ongoing', // Only update ongoing proposals
+        milestones: {
+          $not: {
+            $elemMatch: {
+              steps: {
+                $elemMatch: {
+                  clientStatus: { $ne: 'Completed' }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        $set: { status: 'completed' }
+      }
+    );
 
+    res.json({ message: 'Proposals updated successfully', result: updatedProposals });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
+
+router.get('/completedProposals', async (req, res) => {
+  try {
+    // Find all proposals where the status is 'completed'
+    const completedProposals = await Proposal.find({ status: 'completed' });
+
+    res.json(completedProposals);
+    console.log(completedProposals);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 export default router;

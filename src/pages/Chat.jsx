@@ -1,74 +1,72 @@
-import { useState, useEffect } from "react";
-import io from "socket.io-client";
+import React, { useState, useEffect } from 'react';
+import io from 'socket.io-client';
+// import './Chat.css'; // Ensure you have Tailwind CSS setup in your project
 
-const socket = io("http://localhost:5000"); // Replace with your server address
+const socket = io('http://localhost:5000');
 
-function Chat() {
+const Chat = ({ roomId, username }) => {
+  const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [messageInput, setMessageInput] = useState("");
 
   useEffect(() => {
-    // Socket.IO event listeners
+    socket.emit('joinRoom', { roomId });
 
-    // Listen for incoming messages
-    socket.on("message", (message) => {
-      setMessages([...messages, message]);
+    socket.on('previousMessages', (messages) => {
+      setMessages(messages);
+    });
+
+    socket.on('receiveMessage', (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
     });
 
     return () => {
-      // Cleanup on component unmount
-      socket.off("message");
+      socket.off('previousMessages');
+      socket.off('receiveMessage');
     };
-  }, [messages]);
+  }, [roomId]);
 
   const sendMessage = () => {
-    if (messageInput.trim() !== "") {
-      const message = { text: messageInput, timestamp: new Date() };
-      socket.emit("message", message);
-      setMessageInput("");
+    if (message.trim() !== '') {
+      socket.emit('sendMessage', { roomId, sender: username, message });
+      setMessage('');
     }
   };
 
+  const getMessageStyle = (sender) => {
+    const colors = ['bg-green-500', 'bg-yellow-500', 'bg-red-500', 'bg-purple-500'];
+    const colorIndex = username === sender ? 0 : (sender.charCodeAt(0) % colors.length);
+    return colors[colorIndex];
+  };
+
   return (
-    <div className="flex justify-center items-center w-full h-screen bg-gradient-to-b from-blue-300 to-blue-200">
-      <div className="bg-white rounded-lg w-96 h-96 p-4 shadow-md">
-        <div className="flex flex-col h-full">
-          <div className="flex-1 p-2 overflow-y-auto bg-gray-100 rounded-md">
-            {messages.map((msg, index) => (
-              <div key={index} className="flex flex-col items-start">
-                <div
-                  className="bg-blue-500 
-                   text-white p-2 rounded-md"
-                >
-                  {msg.text}
-                </div>
-                <span className="text-gray-500 text-xs">
-                  {new Date(msg.timestamp).toLocaleTimeString()}
-                </span>
-              </div>
-            ))}
+    <div className="flex flex-col h-screen max-w-sm mx-auto bg-gradient-to-br from-gray-100 to-gray-200 shadow-lg rounded-lg overflow-hidden">
+      <div className="flex-1 p-4 overflow-auto space-y-4">
+        {messages.map((msg, index) => (
+          <div
+            key={index}
+            className={`p-3 rounded-lg text-white ${msg.sender === username ? 'self-end' : 'self-start'} ${getMessageStyle(msg.sender)}`}
+          >
+            <strong>{msg.sender}:</strong> {msg.message}
           </div>
-          <div className="p-2 border-t border-gray-300">
-            <div className="flex">
-              <input
-                type="text"
-                className="w-full px-2 py-1 border rounded-l-md outline-none"
-                placeholder="Type your message..."
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-              />
-              <button
-                className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600"
-                onClick={sendMessage}
-              >
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
+        ))}
+      </div>
+      <div className="p-4 bg-white border-t flex items-center">
+        <input
+          type="text"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Type a message..."
+          className="flex-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={sendMessage}
+          className="ml-3 bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition duration-200"
+        >
+          Send
+        </button>
       </div>
     </div>
   );
-}
+};
 
 export default Chat;

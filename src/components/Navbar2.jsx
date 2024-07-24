@@ -13,6 +13,9 @@ const Navbar2 = () => {
   const handleChatWithDeveloper = () => {
     navigate('/recievedProposals');
   };
+  const handleongoing = () => {
+    navigate('/progress');
+  };
 
   return (
     <nav className="bg-white shadow-md p-4 flex justify-between items-center">
@@ -29,6 +32,12 @@ const Navbar2 = () => {
           className="text-gray-600 hover:text-gray-800 transition duration-300"
         >
           Recieved Proposals
+        </button>
+        <button
+          onClick={handleongoing}
+          className="text-gray-600 hover:text-gray-800 transition duration-300"
+        >
+         Ongoing Proposals
         </button>
       </div>
     </nav>

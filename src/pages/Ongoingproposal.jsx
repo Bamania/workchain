@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ChatButton from '../components/Chatbutton';
 
 const OngoingProposals = () => {
   const [proposals, setProposals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedProposals, setSelectedProposals] = useState([]);
-  const [eachid, setEachid] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,8 +37,6 @@ const OngoingProposals = () => {
         const data = await response.json();
         setProposals(data.proposals);
         console.log("jisme job id",data.proposals);
-        // setEachid(data.proposalsid)
-        // console.log("each proposal id",data.proposal._id)
       } catch (err) {
         setError(err.message);
       } finally {
@@ -56,14 +54,24 @@ const OngoingProposals = () => {
         : [...prev, proposalId]
     );
   };
-  console.log("selected proposals",selectedProposals[0]);
+
   const handleModifyClick = () => {
     if (selectedProposals.length === 0) {
       alert('No proposals selected for modification');
       return;
     }
-    console.log("selected proposals",selectedProposals);
-    navigate('/modify', { state: { jobid: selectedProposals[0], proposalIds: selectedProposals } })
+    navigate('/modify', { state: { jobid: selectedProposals[0], proposalIds: selectedProposals } });
+  };
+  const handleAvailable = () => {
+ 
+    navigate('/availableJob');
+  };
+
+  const handleChatClick = (clientUsername) => {
+    // Redirect or open chat interface
+    console.log(`Initiate chat with client: ${clientUsername}`);
+    // navigate to the chat page or open a chat interface
+    // navigate(`/chat/${clientUsername}`);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -71,14 +79,14 @@ const OngoingProposals = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 p-4">
-      <div className="max-w-4xl mx-auto bg-white shadow-md p-6">
+      <div className="max-w-4xl mx-auto bg-white shadow-md p-6 rounded-lg">
         <h1 className="text-2xl font-bold mb-6">Ongoing Proposals</h1>
 
         {proposals.length === 0 ? (
           <p>No ongoing proposals found.</p>
         ) : (
           proposals.map((proposal) => (
-            <div key={proposal._id} className="mb-6 border p-4 rounded-md">
+            <div key={proposal._id} className="mb-6 border p-4 rounded-lg">
               <div className="flex items-center mb-4">
                 <input
                   type="checkbox"
@@ -113,6 +121,13 @@ const OngoingProposals = () => {
                   </div>
                 ))}
               </div>
+              {/* <button 
+                onClick={() => handleChatClick(proposal.clientUsername)}
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+              >
+                Chat with Client
+              </button> */}
+              <ChatButton  />
             </div>
           ))
         )}
@@ -122,6 +137,12 @@ const OngoingProposals = () => {
           className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
         >
           Modify Proposal
+        </button>
+        <button 
+          onClick={handleAvailable}
+          className="mt-4 ml-2 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Go back to available  jobs 
         </button>
       </div>
     </div>

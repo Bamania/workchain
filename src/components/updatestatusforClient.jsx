@@ -16,7 +16,7 @@ const UpdateStatus = () => {
   const handleSubmit = async () => {
     // Save the updated proposal back to the server (you would need to implement this API)
     try {
-      const response = await fetch(`http://localhost:5000/api/update-proposal/${updatedProposal._id}`, {
+      const response = await fetch(`https://workchain.onrender.com/api/update-proposal/${updatedProposal._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

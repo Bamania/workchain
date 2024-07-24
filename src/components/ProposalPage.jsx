@@ -72,7 +72,7 @@ const ProposalPage = () => {
       console.log(proposalData)
 
     try {
-      const response = await fetch('http://localhost:5000/api/submit-proposal', {
+      const response = await fetch('https://workchain.onrender.com/api/submit-proposal', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

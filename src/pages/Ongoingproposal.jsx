@@ -21,7 +21,7 @@ const OngoingProposals = () => {
       }
 
       try {
-        const response = await fetch('http://localhost:5000/api/get-ongoing-proposals', {
+        const response = await fetch('https://workchain.onrender.com/api/get-ongoing-proposals', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,

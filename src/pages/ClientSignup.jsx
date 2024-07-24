@@ -19,7 +19,7 @@ const ClientSignup = () => {
     
 
     try {
-      const response = await fetch('http://localhost:5000/api/client-signup', {
+      const response = await fetch('https://workchain.onrender.com/api/client-signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

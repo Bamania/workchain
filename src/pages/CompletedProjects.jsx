@@ -9,7 +9,7 @@ const CompletedProjects = () => {
     // Fetch completed projects from the API
     const fetchProjects = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/completedProposals');
+        const response = await fetch('https://workchain.onrender.com/api/completedProposals');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

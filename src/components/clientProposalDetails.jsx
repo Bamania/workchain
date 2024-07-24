@@ -43,7 +43,7 @@ const ProposalDetails = () => {
     }));
 
     try {
-      const response = await fetch(`http://localhost:5000/api/update-client-status/${proposal._id}`, {
+      const response = await fetch(`https://workchain.onrender.com/api/update-client-status/${proposal._id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ const ProposalDetails = () => {
                       >
                         <option value="Not Completed">Not Completed</option>
                         <option value="Completed">Completed</option>
-+++++++++++++++++++++++++++++++++++++
+
 
                       </select>
                                   <button

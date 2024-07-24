@@ -7,7 +7,7 @@ const NotificationsPage = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/notifications');
+        const response = await fetch('https://workchain.onrender.com/api/notifications');
         const data = await response.json();
         setNotifications(data);
       } catch (error) {
@@ -20,7 +20,7 @@ const NotificationsPage = () => {
 
   const handleApprove = async (notificationId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/approve/${notificationId}`, {
+      const response = await fetch(`https://workchain.onrender.com/api/approve/${notificationId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

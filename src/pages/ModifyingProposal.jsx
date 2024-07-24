@@ -29,7 +29,7 @@ const ModifyProposal = () => {
 //to get the proposal
       try {
         const token = sessionStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/get-proposals', {
+        const response = await fetch('https://workchain.onrender.com/api/get-proposals', {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -85,7 +85,7 @@ const ModifyProposal = () => {
     
     console.log("Submitting modified milestones:", modifiedMilestones);
     try {
-      const response = await fetch('http://localhost:5000/api/updateproposal', {
+      const response = await fetch('https://workchain.onrender.com/api/updateproposal', {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,

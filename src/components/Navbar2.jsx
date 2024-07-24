@@ -11,7 +11,7 @@ const Navbar2 = () => {
   };
 
   const handleChatWithDeveloper = () => {
-    navigate('/chat');
+    navigate('/recievedProposals');
   };
 
   return (
@@ -28,7 +28,7 @@ const Navbar2 = () => {
           onClick={handleChatWithDeveloper}
           className="text-gray-600 hover:text-gray-800 transition duration-300"
         >
-          Chat with Developer
+          Recieved Proposals
         </button>
       </div>
     </nav>

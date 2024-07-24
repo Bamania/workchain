@@ -8,7 +8,7 @@ const ClientHomePage = () => {
   const navigate = useNavigate();
 
   const handleCreateProject = () => {
-    navigate("/client");
+    navigate("/createproject");
   };
 
   const handlePastProject = () => {

@@ -20,18 +20,22 @@ const JobList = () => {
     fetchJobs();
   }, []);
 
-  const handleApply = async (jobId) => {
+  const handleApply = async (jobid) => {
+    
+    
+   
     try {
-      const response = await fetch(`http://localhost:5000/api/apply/${jobId}`, { //developer applying for job 1 ! can be distinguished using job Id
+      const response = await fetch(`http://localhost:5000/api/apply/${jobid}`, { //developer applying for job 1 ! can be distinguished using job Id
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ developerId: 'developer1' }) //ASSUMING THE ID of the developer here
+        body: JSON.stringify({jobid:jobid}) //ASSUMING THE ID of the developer here
       });
       const data = await response.json();
-      setStatus("completed");
-      alert(data.message);
+     
+   console.log(data.job);
+
     } catch (error) {
       console.error('Failed to apply for job:', error);
     }

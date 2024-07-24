@@ -58,16 +58,16 @@ const detectCurrentProvider = () => {
   }
   const loginfunction = () => {
     console.log(isConnected);
-    if (isConnected) {
+    
       if (selectedOption === "client") {
         // Navigate to client side
-        navigate("/clientHome");
+        navigate("/clientLogin");
       } else if (selectedOption === "freelancer") {
         // Navigate to freelancer side
-        navigate("/freelancer");
+        navigate("/DeveloperLogin");
       }
-    } else {
-      alert("Please connect your wallet first!");
+     else {
+      alert("seems like you dont know yourself!");
     }
   };
   

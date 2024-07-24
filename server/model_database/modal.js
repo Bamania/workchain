@@ -1,5 +1,6 @@
-// File: models/job.model.js
+
 import mongoose from 'mongoose';
+
 
 const milestoneSchema = new mongoose.Schema({
   description: { type: String, required: true },
@@ -8,7 +9,7 @@ const milestoneSchema = new mongoose.Schema({
 
 const jobSchema = new mongoose.Schema({
 
-  ethAdress: { type: String, required: true },
+  
   title: { type: String, required: true },
   skills: { type: String, required: true },
   estimation: { type: String },
@@ -17,9 +18,10 @@ const jobSchema = new mongoose.Schema({
   milestones: [milestoneSchema]
 });
 
-const Job = mongoose.model('Job', jobSchema,"test01");
-
+const Job = mongoose.model('Job', jobSchema);
 export default Job;
+
+
 
 
 
